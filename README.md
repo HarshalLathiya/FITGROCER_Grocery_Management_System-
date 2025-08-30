@@ -106,5 +106,6 @@ This project is **open-source** and available under the [MIT License](LICENSE).
 
 **FitGrocer** delivers fresh groceries to your doorstep, combining **efficiency, reliability, and a clean, modern interface**.
 
-[Watch FitGrocer Demo]([https://link-to-your-video.com](https://photos.app.goo.gl/hQpFKmjfoo1hA1gM8))
+[![FitGrocer Demo](https://raw.githubusercontent.com/HarshalLathiya/FITGROCER_Grocery_Management_System/)](https://photos.app.goo.gl/hQpFKmjfoo1hA1gM8)
+
 
