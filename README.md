@@ -1,6 +1,3 @@
-Here’s a professional and well-structured **README.md** file for your FitGrocer project:
-
----
 
 # FitGrocer – Grocery Management System 🛒🥦🍎
 
@@ -109,6 +106,5 @@ This project is **open-source** and available under the [MIT License](LICENSE).
 
 **FitGrocer** delivers fresh groceries to your doorstep, combining **efficiency, reliability, and a clean, modern interface**.
 
----
+[Watch FitGrocer Demo]([https://link-to-your-video.com](https://photos.app.goo.gl/hQpFKmjfoo1hA1gM8))
 
-If you want, I can also create a **short, GitHub-ready version with emojis and badges** that will look more lively and attractive on the repo page. Do you want me to do that?
