@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FitGrocer Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="/CSS/viewProduct.css" />
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a href="/admin">
+        <img src="/images/logo.png" height="50px" alt="FitGrocer Logo" />
+        <span>FitGrocer</span>
+      </a>
+    </div>
+    <div class="navbar-menu">
+      <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <aside class="sidebar">
+      <ul>
+        <li><a href="/admin">Dashboard</a></li>
+        <li><a href="/admin/addProduct">Add Products</a></li>
+        <li><a href="/admin/viewProduct">View Products</a></li>
+        <li><a href="/admin/viewOrders">View Orders</a></li>
+        <li><a href="/admin/addNutrients">Add Nutritions</a></li>
+        <li><a href="/admin/viewNutritions">View Nutritions</a></li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+      <h2>All Products</h2>
+
+      <div class="table-container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Price</th>
+              <th>Type</th>
+              <th>Quantity</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% data.forEach( element=>{ %>
+              <tr>
+                <td>
+                  <img src="/images/<%= element.image_name %>" alt="<%= element.name %>" />
+                </td>
+                <td>
+                  <%= element.name %>
+                </td>
+                <td>
+                  <%= element.description %>
+                </td>
+                <td>
+                  <%= element.price %>
+                </td>
+                <td>
+                  <%= element.type%>
+                </td>
+                <td>
+                  <%= element.quantity%>
+                </td>
+                <td>
+                  <div class="action-buttons">
+                    <a href="/admin/editProduct/<%= element.id %>" class="action-btn edit-btn">Edit</a>
+                    <a href="/admin/deleteProduct/<%= element.id %>" class="action-btn delete-btn">Delete</a>
+                  </div>
+                </td>
+              </tr>
+              <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <p>Copyright &copy; 2025 FitGrocer. All rights reserved.</p>
+  </footer>
+</body>
+
+</html>

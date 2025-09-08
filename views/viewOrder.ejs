@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FitGrocer Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="/CSS/viewOrder.css" />
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a href="/admin">
+        <img src="/images/logo.png" height="50px" alt="FitGrocer Logo" />
+        <span>FitGrocer</span>
+      </a>
+    </div>
+    <div class="navbar-menu">
+      <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <aside class="sidebar">
+      <ul>
+        <li><a href="/admin">Dashboard</a></li>
+        <li><a href="/admin/addProduct">Add Products</a></li>
+        <li><a href="/admin/viewProduct">View Products</a></li>
+        <li><a href="/admin/viewOrders">View Orders</a></li>
+        <li><a href="/admin/addNutrients">Add Nutritions</a></li>
+        <li><a href="/admin/viewNutritions">View Nutritions</a></li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+      <h2>Order Listing</h2>
+      <p>List of Placed Orders</p>
+
+      <div class="table-container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Product ID</th>
+              <th>Name</th>
+              <th>User ID</th>
+              <th>Quantity</th>
+              <th>Shipping Address</th>
+              <th>Total Amount</th>
+              <th>Date & Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% data.forEach(element=> { %>
+              <tr>
+                <td>
+                  <img src="/images/<%=element.image_name %>" alt="img" />
+                </td>
+                <td>
+                  <%= element.product_id %>
+                </td>
+                <td>
+                  <%= element.name %>
+                </td>
+                <td>
+                  <%= element.user_id %>
+                </td>
+                <td>
+                  <%= element.quantity %>
+                </td>
+                <td>
+                  <%= element.shipping_address %>
+                </td>
+                <td>Rs. <%= element.total_amount %>
+                </td>
+                <td>
+                  <%= element.orderDateTime %>
+                </td>
+              </tr>
+              <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <p>Copyright &copy; 2025 FitGrocer. All rights reserved.</p>
+  </footer>
+</body>
+
+</html>

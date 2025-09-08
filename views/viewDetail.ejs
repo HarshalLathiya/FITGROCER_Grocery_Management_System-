@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fit Grocer - Product Details</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <link rel="stylesheet" href="/CSS/viewDetail.css" />
+</head>
+
+<body>
+  <!-- Decorative Elements -->
+  <div class="decorative-circle circle-1"></div>
+  <div class="decorative-circle circle-2"></div>
+
+  <header>
+    <div class="top-bar">
+      <a href="/home">
+        <div class="brand">
+          <img src="/images/logo.png" height="200px" alt="logo" />
+          <h1>Fit Grocer</h1>
+        </div>
+      </a>
+      <nav class="nav-container">
+        <a href="/cart" class="nav-button cart-button">Cart</a>
+        <a href="/logout" class="nav-button logout-button">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <% pdata.forEach(element=> { %>
+      <div class="card">
+        <img src="/images/<%= element.image_name %>" alt="<%= element.name %>" />
+        <h3>
+          <%= element.name %>
+        </h3>
+        <p>
+          <%= element.description %>
+        </p>
+        <div class="info-section">
+          <div class="price-info">Price: ₹<%= element.price %>
+          </div>
+
+          <% if (element.quantity> 0) { %>
+            <div class="quantity-info">In Stock: <%= element.quantity %>
+            </div>
+            <% if (element.quantity> 0) { %>
+              <div class="button-container">
+                <a href="/buy/<%= element.id %>" class="buy-btn">Add to cart</a>
+              </div>
+              <% } %>
+                <% } else { %>
+                  <div class="out-of-stock">Out of Stock</div>
+                  <% } %>
+        </div>
+      </div>
+      <% }) %>
+
+        <div class="chart-container">
+          <canvas id="myChart"></canvas>
+        </div>
+  </div>
+
+  <% data.forEach(element=> { %>
+    <script>
+      var xValues = [
+        "Vitamins",
+        "Carbohydrates",
+        "Fiber",
+        "Protein",
+        "Fat",
+        "Calories",
+      ];
+      var yValues = [
+        `<%= element.vitamins %>`,
+        `<%= element.carbohydrates %>`,
+        `<%= element.fiber %>`,
+        `<%= element.protien %>`,
+        `<%= element.fat %>`,
+        `<%= element.calories %>`,
+      ];
+      var barColors = [
+        "#1e8e3e", // Primary green
+        "#34a853", // Accent green
+        "#0f5223", // Dark green
+        "#d5e8d4", // Light green
+        "#ff9800", // Price border (orange)
+        "#e65100", // Price color (dark orange)
+      ];
+
+      new Chart("myChart", {
+        type: "doughnut",
+        data: {
+          labels: xValues,
+          datasets: [
+            {
+              backgroundColor: barColors,
+              data: yValues,
+            },
+          ],
+        },
+        options: {
+          title: {
+            display: false,
+          },
+          legend: {
+            position: "bottom",
+            labels: {
+              fontColor: "#555555",
+              fontFamily: "'Inter', sans-serif",
+              boxWidth: 15,
+              padding: 15,
+            },
+          },
+          tooltips: {
+            backgroundColor: "rgba(15, 82, 35, 0.8)",
+            titleFontFamily: "'Inter', sans-serif",
+            bodyFontFamily: "'Inter', sans-serif",
+            cornerRadius: 6,
+          },
+          maintainAspectRatio: false,
+        },
+      });
+    </script>
+    <% }) %>
+</body>
+
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FitGrocer Admin - Add Nutritions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="/CSS/formNutrients.css" />
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a href="/admin">
+        <img src="/images/logo.png" height="50px" alt="FitGrocer Logo" />
+        <span>FitGrocer</span>
+      </a>
+    </div>
+    <div class="navbar-menu">
+      <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <aside class="sidebar">
+      <ul>
+        <li><a href="/admin">Dashboard</a></li>
+        <li><a href="/admin/addProduct">Add Products</a></li>
+        <li><a href="/admin/viewProduct">View Products</a></li>
+        <li><a href="/admin/viewOrders">View Orders</a></li>
+        <li><a href="/admin/addNutrients">Add Nutritions</a></li>
+        <li><a href="/admin/viewNutritions">View Nutritions</a></li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+      <h2>Add Nutritional Information</h2>
+      <div class="form-container">
+        <form action="/admin/addNutrients" method="post">
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label for="product_dropdown">Product</label>
+              <select id="product_dropdown" name="product">
+                <% data.forEach(element=>{ %>
+                  <option value="<%=element.name%>">
+                    <%=element.name %>
+                  </option>
+                  <% }) %>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="vitamins">Vitamins</label>
+              <input type="text" id="vitamins" name="vitamins" placeholder="Enter vitamins content" />
+            </div>
+
+            <div class="form-group">
+              <label for="carbohydrates">Carbohydrates</label>
+              <input type="text" id="carbohydrates" name="carbohydrates" placeholder="Enter carbohydrates content" />
+            </div>
+
+            <div class="form-group">
+              <label for="fiber">Fiber</label>
+              <input type="text" id="fiber" name="fiber" placeholder="Enter fiber content" />
+            </div>
+
+            <div class="form-group">
+              <label for="protien">Protein</label>
+              <input type="text" id="protien" name="protien" placeholder="Enter protein content" />
+            </div>
+
+            <div class="form-group">
+              <label for="fat">Fats</label>
+              <input type="text" id="fat" name="fat" placeholder="Enter fats content" />
+            </div>
+
+            <div class="form-group">
+              <label for="calories">Calories</label>
+              <input type="text" id="calories" name="calories" placeholder="Enter calories content" />
+            </div>
+
+            <div class="btn-container">
+              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="reset" class="btn btn-secondary">Cancel</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+</body>
+
+</html>

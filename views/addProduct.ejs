@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FitGrocer Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="/CSS/addProduct.css" />
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a href="/admin">
+        <img src="/images/logo.png" height="50px" alt="FitGrocer Logo" />
+        <span>FitGrocer</span>
+      </a>
+    </div>
+    <div class="navbar-menu">
+      <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <aside class="sidebar">
+      <ul>
+        <li><a href="/admin">Dashboard</a></li>
+        <li><a href="/admin/addProduct">Add Products</a></li>
+        <li><a href="/admin/viewProduct">View Products</a></li>
+        <li><a href="/admin/viewOrders">View Orders</a></li>
+        <li><a href="/admin/addNutrients">Add Nutritions</a></li>
+        <li><a href="/admin/viewNutritions">View Nutritions</a></li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+      <h2>Add New Product</h2>
+
+      <div class="form-container">
+        <form action="/admin/addNewProduct" method="post">
+          <label for="name">Product Name</label>
+          <input type="text" name="name" id="name" placeholder="Enter product name" required />
+
+          <label for="description">Description</label>
+          <textarea name="description" id="description" placeholder="Enter product description" rows="3"
+            required></textarea>
+
+          <div class="form-row">
+            <div class="form-col">
+              <label for="file">Select Image</label>
+              <input type="file" name="file1" id="file" required />
+            </div>
+            <div class="form-col">
+              <label for="type">Product Type</label>
+              <select name="type" id="type">
+                <option value="FRUIT">Fruit</option>
+                <option value="VEGETABLE">Vegetable</option>
+                <option value="dairy">Dairy</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-col">
+              <label for="quantity">Quantity</label>
+              <input type="number" name="quantity" id="quantity" placeholder="Enter quantity" min="1" max="500"
+                required />
+            </div>
+            <div class="form-col">
+              <label for="price">Price</label>
+              <input type="number" name="price" id="price" placeholder="Enter price" min="1" required />
+            </div>
+          </div>
+
+          <div class="button-group">
+            <button type="submit">Submit</button>
+            <button type="reset">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <!-- <footer class="footer">
+      <p>Copyright &copy; 2025 FitGrocer. All rights reserved.</p>
+    </footer> -->
+</body>
+
+</html>
