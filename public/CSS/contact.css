@@ -191,7 +191,10 @@ body {
     color: #2e7d32;
     margin-bottom: 15px;
 }
-
+.owner{
+    border-radius: 50%;
+    border: 1px solid white;
+}
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
