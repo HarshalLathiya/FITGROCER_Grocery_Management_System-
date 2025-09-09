@@ -84,13 +84,13 @@ exports.postForgotPassword = async (req, res) => {
 };
 
 exports.getContactPage = (req, res) => {
-  res.render("contact");
+  res.render("contact", { user: req.user });
 };
 
 const axios = require("axios");
 
 exports.getContactPage = (req, res) => {
-  res.render("contact");
+  res.render("contact", { user: req.user });
 };
 
 exports.postContactForm = async (req, res) => {
@@ -113,24 +113,24 @@ exports.postContactForm = async (req, res) => {
 
     if (response.status === 200) {
       res.render("contact", {
-        successMsg: "Thank you! Your message has been sent✅."
+        successMsg: "Thank you! Your message has been sent✅.", user: req.user
       });
     } else {
       res.render("contact", {
-        errorMsg: "Oops! Something went wrong. Please try again❌ ."
+        errorMsg: "Oops! Something went wrong. Please try again❌ .", user: req.user
       });
     }
   } catch (error) {
     console.error("Formspree error:", error.message);
     res.render("contact", {
-      errorMsg: "Could not send your message. Try again later⚠️."
+      errorMsg: "Could not send your message. Try again later⚠️.", user: req.user
     });
   }
 };
 
 
 exports.home = (req, res) => {
-  res.render("home");
+  res.render("home", { user: req.user });
 };
 
 exports.displayProducts = async (req, res) => {
@@ -140,7 +140,7 @@ exports.displayProducts = async (req, res) => {
     const query = `select * from products where type="${type}"`;
     const [result] = await db.execute(query);
     // console.log(result);
-    res.render("displayProduct", { data: result, title: type });
+    res.render("displayProduct", { data: result, title: type, user: req.user });
   } catch (err) {
     console.log(err);
   }
@@ -157,7 +157,7 @@ exports.viewDetailsById = async (req, res) => {
   const [result2] = await db.execute(query2);
   // console.log(result2);
 
-  res.render("viewDetail", { data: result, pdata: result2 });
+  res.render("viewDetail", { data: result, pdata: result2, user: req.user });
 };
 
 // Add to Cart
@@ -187,7 +187,7 @@ exports.displayCart = async (req, res) => {
     const query = `SELECT p.name, p.price,p.quantity AS stock_quantity ,p.image_name, c.quantity, c.id , c.product_id FROM cart AS c JOIN products AS p ON c.product_id = p.id WHERE c.user_id = ?;`;
     const [result] = await db.execute(query, [userID]);
     // console.log(result);
-    res.render("cart", { data: result });
+    res.render("cart", { data: result, user: req.user });
   } catch (err) {
     console.log(err);
   }

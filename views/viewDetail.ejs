@@ -14,20 +14,7 @@
   <div class="decorative-circle circle-1"></div>
   <div class="decorative-circle circle-2"></div>
 
-  <header>
-    <div class="top-bar">
-      <a href="/home">
-        <div class="brand">
-          <img src="/images/logo.png" height="200px" alt="logo" />
-          <h1>Fit Grocer</h1>
-        </div>
-      </a>
-      <nav class="nav-container">
-        <a href="/cart" class="nav-button cart-button">Cart</a>
-        <a href="/logout" class="nav-button logout-button">Logout</a>
-      </nav>
-    </div>
-  </header>
+  <%- include('partials/header') %>
 
   <div class="container">
     <% pdata.forEach(element=> { %>
@@ -125,6 +112,7 @@
       });
     </script>
     <% }) %>
+  <%- include('partials/footer') %>
 </body>
 
 </html>
