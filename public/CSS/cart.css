@@ -182,6 +182,14 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.18);
       }
 
+      .user-info {
+        display: flex;
+        align-items: center;
+        color: white;
+        font-weight: 500;
+        margin-right: 20px;
+      }
+
       /* Container */
       .container {
         max-width: 1000px;
