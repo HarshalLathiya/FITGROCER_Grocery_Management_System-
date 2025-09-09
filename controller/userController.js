@@ -47,7 +47,7 @@ exports.loginData = async (req, res) => {
 
       res.cookie("token", token, { httpOnly: true });
       if (data.role == "CUSTOMER") {
-        res.render("home");
+        res.render("home", { user: data });
       } else {
         res.render("dashboard");
       }
