@@ -15,48 +15,48 @@
 
   <%- include('partials/header', { user: user }) %>
 
-  <main>
-    <h2 id="title">
-      <%= title %>
-    </h2>
-    <div class="section-divider"></div>
+    <main>
+      <h2 id="title">
+        <%= title %>
+      </h2>
+      <div class="section-divider"></div>
 
-    <div class="product-container">
-      <% data.forEach(element=> { %>
-        <div class="product-card">
-          <img class="product-image" src="/images/<%=element.image_name %>" alt="<%= element.name %>" />
-          <div class="product-content">
-            <span class="category-tag">Healthy Food</span>
-            <h3>
-              <%= element.name %>
-            </h3>
-            <p>
-              <%= element.description %>
-            </p>
+      <div class="product-container">
+        <% data.forEach(element=> { %>
+          <div class="product-card">
+            <img class="product-image" src="/images/<%=element.image_name %>" alt="<%= element.name %>" />
+            <div class="product-content">
+              <span class="category-tag">Healthy Food</span>
+              <h3>
+                <%= element.name %>
+              </h3>
+              <p>
+                <%= element.description %>
+              </p>
 
-            <div class="price-stock-container">
-              <div class="price">₹<%= element.price %>
-              </div>
-              <% if (element.quantity> 0) { %>
-                <div class="quantity">In Stock: <%= element.quantity %>
+              <div class="price-stock-container">
+                <div class="price">₹<%= element.price %>
                 </div>
-                <% } else { %>
-                  <div class="out-of-stock">Out of Stock</div>
-                  <% } %>
-            </div>
+                <% if (element.quantity> 0) { %>
+                  <div class="quantity">In Stock: <%= element.quantity %>
+                  </div>
+                  <% } else { %>
+                    <div class="out-of-stock">Out of Stock</div>
+                    <% } %>
+              </div>
 
-            <div class="button-group">
-              <% if (element.quantity> 0) { %>
-                <a href="/buy/<%= element.id %>" class="button add-to-cart">Add to cart</a>
-                <% } %>
-                  <a href="/view/<%= element.id %>" class="button view-details">View details</a>
+              <div class="button-group">
+                <% if (element.quantity> 0) { %>
+                  <a href="/buy/<%= element.id %>" class="button add-to-cart">Add to cart</a>
+                  <% } %>
+                    <a href="/view/<%= element.id %>" class="button view-details">View details</a>
+              </div>
             </div>
           </div>
-        </div>
-        <% }) %>
-    </div>
-  </main>
-  <%- include('partials/footer') %>
+          <% }) %>
+      </div>
+    </main>
+    <!-- <%- include('partials/footer') %> -->
 </body>
 
 </html>
