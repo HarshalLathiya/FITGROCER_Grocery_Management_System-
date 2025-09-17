@@ -12,88 +12,75 @@
   <div class="decorative-circle circle-1"></div>
   <div class="decorative-circle circle-2"></div>
 
-  <header>
-    <div class="top-bar">
-      <a href="/home">
-        <div class="brand">
-          <img src="/images/logo.png" height="200px" alt="logo" />
-          <h1>Fit Grocer</h1>
-        </div>
-      </a>
-      <nav class="nav-container">
-        <a href="/home" class="nav-button home-button">Home</a>
-        <a href="/logout" class="nav-button logout-button">Logout</a>
-      </nav>
-    </div>
-  </header>
+  <%- include('partials/header', { user: user }) %>
 
-  <div class="container">
-    <h2>Your Cart</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Image</th>
-          <th>Name</th>
-          <th>Quantity</th>
-          <th>Price</th>
-          <th>Total</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% data.forEach(element=> { %>
+    <div class="container">
+      <h2>Your Cart</h2>
+      <table>
+        <thead>
           <tr>
-            <td>
-              <img src="/images/<%=element.image_name %>" alt="<%= element.name %>" width="80" height="80" />
-            </td>
-            <td>
-              <%= element.name %>
-            </td>
-            <td>
-              <form action="/update-cart/<%= element.id %>" method="post">
-                <input type="hidden" name="cartId" value="<%= element.id %>" />
-                <input type="number" class="quantity-input" name="quantity" value="<%= element.quantity %>" min="1"
-                  max="<%= element.stock_quantity %>" onchange="this.form.submit()" />
-              </form>
-            </td>
-            <td>₹<%= element.price %>
-            </td>
-            <td>
-              <div class="total-container">
-                <span>₹</span>
-                <input type="number" name="total" id="total_<%= element.product_id %>"
-                  value="<%= Number(element.price) * Number(element.quantity) %>" readonly />
-              </div>
-            </td>
-            <td>
-              <a href="/delete_cart/<%= element.id %>" onclick="return confirm('Are you sure ?')"
-                class="btn btn-danger">
-                Delete
-              </a>
-            </td>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+            <th>Action</th>
           </tr>
-          <% }) %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% data.forEach(element=> { %>
+            <tr>
+              <td>
+                <img src="/images/<%=element.image_name %>" alt="<%= element.name %>" width="80" height="80" />
+              </td>
+              <td>
+                <%= element.name %>
+              </td>
+              <td>
+                <form action="/update-cart/<%= element.id %>" method="post">
+                  <input type="hidden" name="cartId" value="<%= element.id %>" />
+                  <input type="number" class="quantity-input" name="quantity" value="<%= element.quantity %>" min="1"
+                    max="<%= element.stock_quantity %>" onchange="this.form.submit()" />
+                </form>
+              </td>
+              <td>₹<%= element.price %>
+              </td>
+              <td>
+                <div class="total-container">
+                  <span>₹</span>
+                  <input type="number" name="total" id="total_<%= element.product_id %>"
+                    value="<%= Number(element.price) * Number(element.quantity) %>" readonly />
+                </div>
+              </td>
+              <td>
+                <a href="/delete_cart/<%= element.id %>" onclick="return confirm('Are you sure ?')"
+                  class="btn btn-danger">
+                  Delete
+                </a>
+              </td>
+            </tr>
+            <% }) %>
+        </tbody>
+      </table>
 
-    <form action="/place_order" method="post">
-      <label for="shippingAddress">Shipping Address</label>
-      <input type="text" name="shipping_address" id="shippingAddress" placeholder="Enter your shipping address"
-        required />
+      <form action="/place_order" method="post">
+        <label for="shippingAddress">Shipping Address</label>
+        <input type="text" name="shipping_address" id="shippingAddress" placeholder="Enter your shipping address"
+          required />
 
-      <div class="grand-total">
-        <span>Grand Total: ₹</span>
-        <input type="number" name="total_amount" id="total"
-          value="<%= data.reduce((sum, item) => sum + (item.price * item.quantity), 0) %>" readonly />
-      </div>
+        <div class="grand-total">
+          <span>Grand Total: ₹</span>
+          <input type="number" name="total_amount" id="total"
+            value="<%= data.reduce((sum, item) => sum + (item.price * item.quantity), 0) %>" readonly />
+        </div>
 
-      <div class="payment-section">
-        <p><strong>Payment Method:</strong> Cash on Delivery</p>
-      </div>
+        <div class="payment-section">
+          <p><strong>Payment Method:</strong> Cash on Delivery</p>
+        </div>
 
-      <button type="submit" class="placeorder-btn">Place Order</button>
-    </form>
-  </div>
+        <button type="submit" class="placeorder-btn">Place Order</button>
+      </form>
+    </div>
 </body>
 
 </html>

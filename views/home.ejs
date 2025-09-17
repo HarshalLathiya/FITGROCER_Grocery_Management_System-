@@ -11,21 +11,7 @@
 </head>
 
 <body>
-  <header>
-    <div class="top-bar">
-      <a href="/home">
-        <div class="brand">
-          <img src="/images/logo.png" height="200px" alt="logo" />
-          <h1>Fit Grocer</h1>
-        </div>
-      </a>
-      <nav class="nav-container">
-        <a href="/cart" class="nav-button cart-button">Cart</a>
-        <a href="/contact" class="nav-button contact-button">Contact Us</a>
-        <a href="/logout" class="nav-button logout-button">Logout</a>
-      </nav>
-    </div>
-  </header>
+  <%- include('partials/header', { user: user }) %>
 
   <section class="hero">
     <div class="hero-overlay"></div>
@@ -61,12 +47,7 @@
     </div>
   </section>
 
-  <footer class="footer">
-    <p>
-      &copy; 2025 Fit Grocer. All rights reserved. | Contact Us:
-      support@fitgrocer.com | Follow us on social media
-    </p>
-  </footer>
+  <%- include('partials/footer') %>
 </body>
 
 </html>

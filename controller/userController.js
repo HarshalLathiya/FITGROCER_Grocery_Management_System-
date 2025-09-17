@@ -47,15 +47,15 @@ exports.loginData = async (req, res) => {
 
       res.cookie("token", token, { httpOnly: true });
       if (data.role == "CUSTOMER") {
-        res.render("home");
+        res.render("home", { user: data });
       } else {
         res.render("dashboard");
       }
     } else {
-      res.send("Invalid password");
+      res.render("login", { errorMsg: "Invalid password. Please try again." });
     }
   } else {
-    res.send("Invalid Email");
+    res.render("login", { errorMsg: "Invalid email address. Please check and try again." });
   }
 };
 exports.getForgotPasswordPage = (req, res) => {
@@ -69,7 +69,7 @@ exports.postForgotPassword = async (req, res) => {
     const [user] = await db.execute(`SELECT * FROM user WHERE email = ?`, [email]);
 
     if (user.length === 0) {
-      return res.send("No account found with that email.");
+      return res.render("forgot-password", { errorMsg: "No account found with that email address." });
     }
 
     const hashed = await bcrypt.hash(newPassword, 10);
@@ -84,13 +84,13 @@ exports.postForgotPassword = async (req, res) => {
 };
 
 exports.getContactPage = (req, res) => {
-  res.render("contact");
+  res.render("contact", { user: req.user });
 };
 
 const axios = require("axios");
 
 exports.getContactPage = (req, res) => {
-  res.render("contact");
+  res.render("contact", { user: req.user });
 };
 
 exports.postContactForm = async (req, res) => {
@@ -113,24 +113,24 @@ exports.postContactForm = async (req, res) => {
 
     if (response.status === 200) {
       res.render("contact", {
-        successMsg: "Thank you! Your message has been sent✅."
+        successMsg: "Thank you! Your message has been sent✅.", user: req.user
       });
     } else {
       res.render("contact", {
-        errorMsg: "Oops! Something went wrong. Please try again❌ ."
+        errorMsg: "Oops! Something went wrong. Please try again❌ .", user: req.user
       });
     }
   } catch (error) {
     console.error("Formspree error:", error.message);
     res.render("contact", {
-      errorMsg: "Could not send your message. Try again later⚠️."
+      errorMsg: "Could not send your message. Try again later⚠️.", user: req.user
     });
   }
 };
 
 
 exports.home = (req, res) => {
-  res.render("home");
+  res.render("home", { user: req.user });
 };
 
 exports.displayProducts = async (req, res) => {
@@ -140,7 +140,7 @@ exports.displayProducts = async (req, res) => {
     const query = `select * from products where type="${type}"`;
     const [result] = await db.execute(query);
     // console.log(result);
-    res.render("displayProduct", { data: result, title: type });
+    res.render("displayProduct", { data: result, title: type, user: req.user });
   } catch (err) {
     console.log(err);
   }
@@ -157,7 +157,7 @@ exports.viewDetailsById = async (req, res) => {
   const [result2] = await db.execute(query2);
   // console.log(result2);
 
-  res.render("viewDetail", { data: result, pdata: result2 });
+  res.render("viewDetail", { data: result, pdata: result2, user: req.user });
 };
 
 // Add to Cart
@@ -175,11 +175,12 @@ exports.addToCartById = async (req, res) => {
     const query2 = `SELECT p.name, p.price,p.quantity AS stock_quantity ,p.image_name, c.quantity, c.id , c.product_id FROM cart AS c JOIN products AS p ON c.product_id = p.id WHERE c.user_id = ?;`;
     const [result2] = await db.execute(query2, [userID]);
 
-    res.render("cart", { data: result2 });
+    res.render("cart", { data: result2, user: req.user });
   } catch (err) {
     console.log(err);
   }
 };
+
 
 exports.displayCart = async (req, res) => {
   try {
@@ -187,7 +188,7 @@ exports.displayCart = async (req, res) => {
     const query = `SELECT p.name, p.price,p.quantity AS stock_quantity ,p.image_name, c.quantity, c.id , c.product_id FROM cart AS c JOIN products AS p ON c.product_id = p.id WHERE c.user_id = ?;`;
     const [result] = await db.execute(query, [userID]);
     // console.log(result);
-    res.render("cart", { data: result });
+    res.render("cart", { data: result, user: req.user });
   } catch (err) {
     console.log(err);
   }
@@ -203,7 +204,7 @@ exports.updateCart = async (req, res) => {
     const query2 = `SELECT p.name, p.price,p.quantity AS stock_quantity, p.image_name , c.quantity, c.id , c.product_id FROM cart AS c JOIN products AS p ON c.product_id = p.id WHERE c.user_id = ?;`;
     const [result] = await db.execute(query2, [userID]);
     // console.log(result);
-    res.render("cart", { data: result });
+    res.render("cart", { data: result, user: req.user });
   } catch (err) {
     console.log(err);
   }
@@ -219,7 +220,7 @@ exports.deleteCartRow = async (req, res) => {
     const query2 = `SELECT p.name, p.price , p.image_name, c.quantity, c.id , c.product_id FROM cart AS c JOIN products AS p ON c.product_id = p.id WHERE c.user_id = ?;`;
     const [result] = await db.execute(query2, [userID]);
     // console.log(result);
-    res.render("cart", { data: result });
+    res.render("cart", { data: result, user: req.user });
   } catch (err) {
     console.log(err);
   }
@@ -228,15 +229,31 @@ exports.deleteCartRow = async (req, res) => {
 exports.placeOrder = async (req, res) => {
   try {
     const userID = req.user.id;
+
+    // Check if cart is empty
+    const checkCartQuery = `SELECT COUNT(*) as cartCount FROM cart WHERE user_id = '${userID}'`;
+    const [cartCheck] = await db.execute(checkCartQuery);
+
+    if (cartCheck[0].cartCount === 0) {
+      // Cart is empty, redirect back to cart with error message
+      const query = `SELECT p.name, p.price,p.quantity AS stock_quantity ,p.image_name, c.quantity, c.id , c.product_id FROM cart AS c JOIN products AS p ON c.product_id = p.id WHERE c.user_id = ?;`;
+      const [result] = await db.execute(query, [userID]);
+      return res.render("cart", {
+        data: result,
+        user: req.user,
+        errorMsg: "Your cart is empty. Please add items before placing an order."
+      });
+    }
+
     // const totalAmount = req.body.total;
     const query = `insert into user_details (shipping_address,user_id) values ('${req.body.shipping_address}','${userID}')`;
     const result = await db.execute(query);
     // console.log([result][1]);
 
-    const query2 = `SELECT c.product_id, c.quantity, (c.quantity * p.price) AS total, 
-                      (SELECT shipping_address FROM user_details WHERE user_id = '${userID}' 
+    const query2 = `SELECT c.product_id, c.quantity, (c.quantity * p.price) AS total,
+                      (SELECT shipping_address FROM user_details WHERE user_id = '${userID}'
                       ORDER BY id DESC LIMIT 1) AS shipping_address
-                      FROM cart AS c 
+                      FROM cart AS c
                       JOIN products AS p ON c.product_id = p.id
                       WHERE c.user_id = '${userID}';`;
 
@@ -246,7 +263,7 @@ exports.placeOrder = async (req, res) => {
     for (let index in result2) {
       let item = result2[index];
 
-      const query3 = `INSERT INTO \`order\` (product_id, user_id, quantity, shipping_address, total_amount) 
+      const query3 = `INSERT INTO \`order\` (product_id, user_id, quantity, shipping_address, total_amount)
                       VALUES ('${item.product_id}', '${req.user.id}', '${item.quantity}', '${item.shipping_address}', '${item.total}')`;
 
       const [result3] = await db.execute(query3);

@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contact Us - Fit Grocer</title>
-  <link rel="stylesheet" href="/css/contact.css" />
+  <link rel="stylesheet" href="/CSS/contact.css" />
 </head>
 
 <body>
@@ -13,60 +13,48 @@
   <div class="floating-shape shape-2"></div>
   <div class="floating-shape shape-3"></div>
 
-  <header>
-    <div class="top-bar">
-      <a href="/home">
-        <div class="brand">
-          <img src="/images/logo.png" height="200px" alt="logo" />
-          <h1>Fit Grocer</h1>
-        </div>
-      </a>
-      <nav class="nav-container">
-        <a href="/home" class="nav-button home-button">Home</a>
-        <a href="/logout" class="nav-button logout-button">Logout</a>
-      </nav>
-    </div>
-  </header>
+  <%- include('partials/header', { user: user }) %>
 
-  <div class="container">
-    <div class="left-section">
-      <img src="/images/me.jpg" alt="Fit Grocer owner" class="owner" />
-      <h1>Contact Us</h1>
-      <p>We’d love to hear from you! Please send us your feedback or questions.</p>
-    </div>
+    <div class="container">
+      <div class="left-section">
+        <img src="/images/logo.png" alt="Fit Grocer logo" />
+        <h1>Contact Us</h1>
+        <p>We’d love to hear from you! Please send us your feedback or questions.</p>
+      </div>
 
-    <div class="right-section">
-      <h2>Feedback Form</h2>
-      <p>Fill in the form below and we'll get back to you soon.</p>
+      <div class="right-section">
+        <h2>Feedback Form</h2>
+        <p>Fill in the form below and we'll get back to you soon.</p>
 
-      <form action="/contact" method="POST">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" placeholder="Your full name" required />
-        </div>
-
-        <div class="form-group">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="your.email@example.com" required />
-        </div>
-
-        <div class="form-group">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" rows="5" placeholder="Write your feedback or question here..." required
-            style="width: 100%; padding: 12px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; resize: vertical;"></textarea>
-        </div>
-
-        <button type="submit" class="btn">Send Feedback</button>
-
-        <% if (typeof successMsg !=='undefined' ) { %>
-          <div class="success-message" style="color: #2e7d32; margin-bottom: 15px; font-weight: 600;">
-            <%= successMsg %>
+        <form action="/contact" method="POST">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your full name" required />
           </div>
-          <% } %>
 
-      </form>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="your.email@example.com" required />
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Write your feedback or question here..."
+              required
+              style="width: 100%; padding: 12px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; resize: vertical;"></textarea>
+          </div>
+
+          <button type="submit" class="btn">Send Feedback</button>
+
+          <% if (typeof successMsg !=='undefined' ) { %>
+            <div class="success-message" style="color: #2e7d32; margin-bottom: 15px; font-weight: 600;">
+              <%= successMsg %>
+            </div>
+            <% } %>
+
+        </form>
+      </div>
     </div>
-  </div>
 </body>
 
 </html>
