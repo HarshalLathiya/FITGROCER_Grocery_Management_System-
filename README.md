@@ -138,14 +138,14 @@ The application uses the following npm scripts:
 To stop the database:
 
 ```bash
-docker-compose down
+docker compose down
 ```
 
 To reset the database (removes all data):
 
 ```bash
-docker-compose down -v
-docker-compose up -d
+docker compose down -v
+docker compose up -d
 ```
 
 Then re-import the SQL file as shown in the setup steps.
