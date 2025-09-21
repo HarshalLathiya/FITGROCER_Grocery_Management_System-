@@ -17,7 +17,8 @@ exports.createUser = async (req, res) => {
 
     res.render("login");
   } catch (e) {
-    console.log("error while inserting user " + e);
+    console.log("error while inserting user:", e.message);
+    console.log("Full error:", e);
   }
 };
 
