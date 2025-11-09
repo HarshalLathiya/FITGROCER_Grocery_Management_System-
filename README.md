@@ -1,4 +1,4 @@
-# FITGROCER Grocery Management System
+# FITGROCER Grocery Management System.
 
 A comprehensive grocery management system built with Node.js and MySQL for managing products, users, orders, and nutritional information.
 
