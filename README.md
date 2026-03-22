@@ -161,3 +161,7 @@ Then re-import the SQL file as shown in the setup steps.
 ## License
 
 This project is for educational purposes.
+
+## Author
+
+Developed By : Lathiya Harshal 
