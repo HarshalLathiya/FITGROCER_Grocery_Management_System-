@@ -164,4 +164,4 @@ This project is for educational purposes.
 
 ## Author
 
-Developed By : Lathiya Harshal 
+Developed By : Lathiya Harshal.
